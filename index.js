@@ -34,12 +34,18 @@ class Board{
     };
 
     findPath(node){
-        //recieve the ending node from findNode
-        //while this.parent != null
+        //while the node != null
         //add location to beggining of temp array
         //step into the parent node
+        let pathArray=[];
+        while (node!=null){
+            pathArray.unshift(node.location);
+            node=node.parent;
+        };
 
         //return the path array
+
+        return pathArray;
     }
 };
 
@@ -90,11 +96,25 @@ class Knight{
 };
 
 let knightMoves = function (startCood, endCoord){
+    //check start & end coordinates to avoid script crashes
+    if (startCood[0]>7 || endCoord[0]<0) return ["Out of grid error, please enter any number from 0 to 7"];
+    if (startCood[1]>7 || endCoord[1]<0) return ["Out of grid error, please enter any number from 0 to 7"];
+
     //create game board
     let BOARD = new Board(startCood,endCoord);
-    //log return value of findNode (which is the ending node with a reference to the root)
-    console.log(BOARD.findNode([BOARD.root]));
+    //findnode returns the final node with a reference to the root node
+    //findpath retraces from the final node back to the root to find the path.
+    let path = BOARD.findPath(BOARD.findNode([BOARD.root]));
+    //creates message 
+    let message = "The fastest path is "
+    //add path items to message
+    path.forEach((item)=>{
+        message=(message+"["+item+"]" +" ");
+    });
+    console.log(message);
+    //log message
+    return path;
 };
 
-knightMoves([0,0],[7,6]);
+knightMoves([3,1],[4,7]);
 
