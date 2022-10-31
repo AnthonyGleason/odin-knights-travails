@@ -19,15 +19,17 @@ class Board{
             //generate valid moves for the knight location
             let validMoves=node.generateMoves();
             //create a new knight for each move location
-            for (let i=0;i<validMoves.length;i++){
-                let tempKnight = new Knight(node, validMoves[i]);
+            validMoves.forEach((move)=>{
+                let tempKnight = new Knight(node, move);
                 //if the new node has a location of the endCoord return the node
                 if (tempKnight.location[0]==this.endCoord[0] && tempKnight.location[1]==this.endCoord[1]){
+                    //EVERYTHING IS WORKING BUT WHERE THE FUCK IS TEMPKNIGHT RETURNED TO
+                    console.log(tempKnight);
                     return tempKnight;
                 }
                 //add the new knight to the end of the temp queue
                 tempQueue.push(tempKnight);
-            };
+            });
         };
         //recurse sending the temp queue to this.findNode
         return this.findNode(tempQueue);
@@ -96,5 +98,5 @@ let knightMoves = function (startCood, endCoord){
     console.log(BOARD.findNode([BOARD.root]));
 };
 
-knightMoves([0,0],[7,6]);
+knightMoves([0,0],[5,2]);
 
